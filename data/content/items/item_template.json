@@ -1,0 +1,56 @@
+{
+    "name": {
+        "type": "string",
+        "desc": "Generic name of the item.",
+        "required": "yes"
+    },
+    "given_name": {
+        "type": "string",
+        "desc": "Custom name of item.",
+        "required": "no"
+    },
+    "description": {
+        "type": "string",
+        "desc": "Single sentence describing item.",
+        "required": "yes"
+    },
+    "type": {
+        "type": "string",
+        "desc": "Item type as defined by D&D",
+        "required": "yes",
+        "valid": ["armor",
+                  "food",
+                  "gear",
+                  "tool",
+                  "vehicle",
+                  "weapon"]
+    },
+    "inventory_slot": {
+        "type": "string",
+        "desc": "Where an item is held, carried, or worn.",
+        "valid": ["armor_body",
+                  "armor_feet",
+                  "armor_hand",
+                  "armor_head",
+                  "clothing_back",
+                  "clothing_body",
+                  "clothing_cloak",
+                  "clothing_ear",
+                  "clothing_face",
+                  "clothiing_feet",
+                  "clothing_head",
+                  "clothing_legs",
+                  "clothing_neck",
+                  "clothing_ring",
+                  "hand_main",
+                  "hand_off"]
+    },
+    "weight": {
+        "type": "float",
+        "desc": "Weight of item, in pounds."
+    },
+    "value": {
+        "type": "int",
+        "desc": "Value of item, in copper to avoid decimals."
+    }
+}

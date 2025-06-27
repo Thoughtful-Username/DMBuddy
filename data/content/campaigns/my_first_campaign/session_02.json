@@ -1,0 +1,14 @@
+{
+    "title": "My first campaign session",
+    "resources": {
+        "storage": "Path to local session save file(s)."
+    },
+    "encounters": {
+        "encounter_02": {
+            "title": "My second encounter.",
+            "resources": {
+                "storage": "Path to local encounter save file(s)."
+            }
+        }
+    }
+}

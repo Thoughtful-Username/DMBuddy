@@ -1,0 +1,92 @@
+{
+    "name": {
+        "type": "string",
+        "desc": "Generic name of the item.",
+        "required": "yes"
+    },
+    "given_name": {
+        "type": "string",
+        "desc": "Custom name of item.",
+        "required": "no",
+        "default": "{item.name}"
+    },
+    "description": {
+        "type": "string",
+        "desc": "Single sentence describing item.",
+        "required": "yes"
+    },
+    "type": {
+        "type": "string",
+        "desc": "Item type as defined by D&D",
+        "valid": "armor",
+        "required": "yes"
+    },
+    "category": {
+        "type": "string",
+        "valid": [
+            "heavy",
+            "light",
+            "medium"
+        ],
+        "required": "yes"
+    },
+    "inventory_slot": {
+        "type": "string",
+        "desc": "Where an item is held, carried, or worn.",
+        "valid": [
+            "armor_body",
+            "armor_feet",
+            "armor_hand",
+            "armor_head"
+        ],
+        "required": "yes"
+    },
+    "attune_to_use": {
+        "type": "boolean",
+        "required": "no",
+        "default": "false"
+    },
+    "equip_to_use": {
+        "type": "boolean",
+        "required": "no",
+        "default": "true"
+    },
+    "stealth_disadvantage": {
+        "type": "boolean",
+        "required": "no",
+        "default": "true"
+    },
+    "required_strength": {
+        "type": "int",
+        "required": "no",
+        "default": 0
+    },
+    "actions": [
+        {
+            "name": {
+                "type": "string",
+                "desc": "Name of the action, with render codes.  Example: '{action.action_type}{ item.name}.'.  Narrative is not generated here.  This will be presented in the list of available actions.  For the rest of the action, see 'action_template.json'."
+            }
+        }
+    ],
+    "effects": [
+        {
+            "name": {
+                "type": "string",
+                "desc": "Name of the effect, with render codes.  Narrative is not generated here.  This will be presented in the list of available effects.  For the rest of the effect, see 'effect_template.json'."
+            }
+        }
+    ],
+    "weight": {
+        "type": "float",
+        "desc": "Weight of item, in 'centipounds' (to avoid decimals).",
+        "required": "no",
+        "default": 10000
+    },
+    "value": {
+        "type": "int",
+        "desc": "Value of item, in copper to avoid decimals.",
+        "required": "no",
+        "default": 1
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "title": "My first encounter.",
+    "resources": {
+        "storage": "Local path to encounter save file(s).",
+        "monsters": {
+            "species": "goblin",
+            "overrides": {
+                "kwarg": "value"
+            }
+        }
+    }
+}

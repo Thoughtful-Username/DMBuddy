@@ -1,0 +1,22 @@
+{
+    "damage": {
+        "effect_type": "damage",
+        "damage_type": "slashing",
+        "duration": "immediate"
+    },
+    "condition": {
+        "condition_type": "prone",
+        "operation": "switch",
+        "value": "true",
+        "duration": "until_dispelled"
+    },
+    "attribute": {
+        "attribute": "strength",
+        "operation": "add",
+        "value": 1,
+        "duration": "turns",
+        "duration_value": 1,
+        "duration_trigger": "source",
+        "duration_timing": "end_of_turn"
+    }
+}

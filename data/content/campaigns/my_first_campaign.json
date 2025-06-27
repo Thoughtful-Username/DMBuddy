@@ -1,0 +1,17 @@
+{
+    "title": "My first campaign.",
+    "resources": {
+        "storage":"string.  Local path to the campaign resource files."
+    },
+    "characters": {
+        "character_01": {
+            "storage": "string.  Local path to character save file."
+        }
+    },
+    "sessions": {
+        "title": "My first campaign session.",
+        "resources": {
+            "storage": "string.  Local path to session save file(s)."
+        }
+    }
+}

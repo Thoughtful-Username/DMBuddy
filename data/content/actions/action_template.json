@@ -1,0 +1,26 @@
+{
+    "complete": "false",
+    "contents": {
+        "name": {
+            "type": "string",
+            "desc": "Name of action, with appropriate render codes.  Examples include: 'Melee attck with dagger.' -> '{action.action_type}{ with}{ item.name}.'; 'Cast Fireball.' -> '{action.action_type}{ spell.name}.'",
+            "required": "yes"
+        },
+        "description": {
+            "type": "string",
+            "desc": "Single sentence describing action.",
+            "required": "yes"
+        },
+        "type": {
+            "type": "string",
+            "desc": "Action type.",
+            "required": "yes",
+            "valid": ["armor",
+                    "food",
+                    "gear",
+                    "tool",
+                    "vehicle",
+                    "weapon"]
+        }
+    }
+}

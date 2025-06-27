@@ -1,0 +1,97 @@
+{
+    "name": {
+        "type": "string",
+        "desc": "Generic name of the item.",
+        "required": "yes"
+    },
+    "given_name": {
+        "type": "string",
+        "desc": "Custom name of item.",
+        "required": "no"
+    },
+    "description": {
+        "type": "string",
+        "desc": "Single sentence describing item.",
+        "required": "yes"
+    },
+    "type": "weapon",
+    "inventory_slot": {
+        "type": "string",
+        "desc": "Where an item is held, carried, or worn.",
+        "valid": [
+            "hand_main",
+            "hand_off"
+        ]
+    },
+    "category": {
+        "type": "string",
+        "valid": [
+            "martial",
+            "simple"
+        ]
+    },
+    "usage": {
+        "type": "string",
+        "valid": [
+            "melee",
+            "ranged"
+        ]
+    },
+    "properties": {
+        "type": "list of strings",
+        "valid": [
+            "ammunition",
+            "finesse",
+            "heavy",
+            "light",
+            "loading",
+            "reach",
+            "thrown",
+            "two-handed",
+            "versatile"
+        ]
+    },
+    "mastery": {
+        "type": "string",
+        "valid": [
+            "cleave",
+            "graze",
+            "nick",
+            "push",
+            "sap",
+            "slow",
+            "topple",
+            "vex"
+        ]
+    },
+    "attune_to_use": {
+        "type": "boolean"
+    },
+    "equip_to_use": {
+        "type": "boolean"
+    },
+    "actions": [
+        {
+            "name": {
+                "type": "string",
+                "desc": "Name of the action, with render codes.  Example: '{action.action_type}{ item.name}.'.  Narrative is not generated here.  This will be presented in the list of available actions.  For the rest of the action, see 'action_template.json'."
+            }
+        }
+    ],
+    "effects": [
+        {
+            "name": {
+                "type": "string",
+                "desc": "Name of the effect, with render codes.  Narrative is not generated here.  This will be presented in the list of available effects.  For the rest of the effect, see 'effect_template.json'."
+            }
+        }
+    ],
+    "weight": {
+        "type": "float",
+        "desc": "Weight of item, in pounds."
+    },
+    "value": {
+        "type": "int",
+        "desc": "Value of item, in copper to avoid decimals."
+    }
+}

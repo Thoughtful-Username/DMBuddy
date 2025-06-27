@@ -1,0 +1,18 @@
+{
+    "duration": [
+        "instant",
+        "permanent",
+        "permanent_until_dispelled",
+        "turn_based",
+        "until_save",
+        "while_equipped"
+    ],
+    "trigger": [
+        "beginning_of_turn",
+        "end_of_turn"
+    ],
+    "type": [
+        "condition",
+        "damage"
+    ]
+}
