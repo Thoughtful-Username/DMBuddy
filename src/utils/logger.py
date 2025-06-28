@@ -1,30 +1,37 @@
-# DMBuddy/src/utils/logger.py
+# /src/utils/logger.py
 import logging
 from logging.handlers import RotatingFileHandler
 from datetime import datetime
 import os
 from typing import Literal
-
+import json
 
 def setup_logger(name: str,
-                 level:Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO",
-                 file_name:str = "DMBuddy",
-                 max_bytes:int = 10**6,
+                 level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO",
+                 file_name: str = "DMBuddy",
+                 max_bytes: int = 10**6,
                  backup_count: int = 5,
                  log_dir: str = "src/logs") -> logging.Logger:
     """
-    Configure and return a logger with a rotating file handler.
+    Configure and return a logger instance with a rotating file handler and
+    console handler which outputs to console if the logging level is 'warning'
+    or above.
 
     Args:
         name:           Logger name. Calls to this method should use '__name__'
                         unless there is a specific reason to use something else.
         level:          Logging level as defined by the logging module. Defaults
                         to 'INFO'.
-        file_name:      Main part of log file name. Defaults to 'DMBuddy'.
+        file_name:      Main part of log file name. Defaults to 'DMBuddy'.  Date
+                        will be appended to this name in the format
+                        'DMBuddy_YYYY-MM-DD.log'.
         max_bytes:      Max individual log file size, in bytes. Defaults to 10**6.
         backup_count:   Maximum number of log files to be stored before deleting
                         to save space.
-        log_dir:        Directory for log files. Defaults to 'src/logs'.
+        log_dir:        Directory for log files. Code will attempt to create
+                        this directory if it does not already exist.  Code
+                        checks 'data/config/config.json' for this value, but
+                        defaults to 'src/logs' if not found.
     
     Returns:
         Instance of logger
@@ -42,10 +49,6 @@ def setup_logger(name: str,
     current_datetime = datetime.now()
     formatted_date = current_datetime.strftime("%Y-%m-%d")
 
-    # TODO: Load from data/config/config.json
-    os.makedirs(log_dir, exist_ok=True)
-    file_name = f"{log_dir}/{file_name}_{formatted_date}.log"
-
     # Default to INFO if invalid level
     log_level = level_map.get(level.upper(), logging.INFO)
 
@@ -53,47 +56,47 @@ def setup_logger(name: str,
     logger = logging.getLogger(name)
     logger.setLevel(log_level)
 
-    # Avoid duplicate handlers
-    if not logger.handlers:
-        # Define formatter
+    # Prevent adding handlers if logger already configured
+    if logger.handlers:
+        return logger
 
-        formatter = MillisecondFormatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S.%f'
-        )
+    # Try to load log directory from config file
+    try:
+        with open('data/config/config.json', 'r') as config_file:
+            config = json.load(config_file)
+            log_dir = config.get('log_dir', log_dir)
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        pass  # Use default log_dir if config file is missing or invalid
 
-        # Rotating file handler
-        try:
-            file_handler = RotatingFileHandler(
-                file_name,
-                maxBytes=max_bytes,
-                backupCount=backup_count
-            )
-        except OSError as e:
-            raise OSError(f"Failed to create log file {file_name}: {e}")
+    # Create log directory if it doesn't exist
+    os.makedirs(log_dir, exist_ok=True)
 
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
+    # Create formatters
+    file_formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+    console_formatter = logging.Formatter(
+        '%(levelname)s: %(message)s'
+    )
 
-        # Optional console handler for immediate feedback
-        console_handler = logging.StreamHandler()
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
+    # Create and configure file handler with rotation
+    log_file = os.path.join(log_dir, f"{file_name}_{formatted_date}.log")
+    file_handler = RotatingFileHandler(
+        log_file,
+        maxBytes=max_bytes,
+        backupCount=backup_count
+    )
+    file_handler.setLevel(log_level)
+    file_handler.setFormatter(file_formatter)
+
+    # Create and configure console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.WARNING)  # Only show warnings and above
+    console_handler.setFormatter(console_formatter)
+
+    # Add handlers to logger
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
 
     return logger
-
-
-class MillisecondFormatter(logging.Formatter):
-    def formatTime(self, record, datefmt=None):
-        ct = self.converter(record.created)
-        if datefmt:
-            # Use record.msecs to format milliseconds (3 digits)
-            s = datetime.fromtimestamp(record.created).strftime(datefmt)
-            if '%f' in datefmt:
-                s = s.replace(str(record.msecs // 1)[:3].zfill(3), '%f')
-        else:
-            s = datetime.fromtimestamp(record.created).isoformat()
-        return s
-
-# Module-level logger for logger.py
-log = setup_logger(__name__)
