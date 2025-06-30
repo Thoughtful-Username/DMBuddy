@@ -1,0 +1,26 @@
+{
+  "logger": {
+    "version": 1,
+    "kwargs": {
+      "level": "INFO",
+      "console_enabled": "true",
+      "console_level": "WARNING",
+      "console_format": "%(name)s - %(levelname)s - %(message)s",
+      "file_enabled": "true",
+      "file_level": "INFO",
+      "file_date_fmt": "%Y-%m-%d",
+      "log_file_path": "src/logs",
+      "file_maxBytes": 10485760,
+      "file_backupCount": 5,
+      "file_format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+      "log_date_fmt": "%Y-%m-%d %H:%M:%S"
+    }
+  },
+  "software": {
+    "name": "DMBuddy",
+    "version": "1.0.0",
+    "description": "A tool for Dungeons and Dragons, 5th Edition Dungeon Masters.",
+    "author": "The DMBuddy Team",
+    "license": "MIT"
+  }
+}
