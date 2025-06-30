@@ -1,22 +1,22 @@
-# DMBuddy/DMBuddy.py
-import json
+# DMBuddy.py
+from src.utils.json_cache import JSONCache
+from src.utils.logger import setup_logger
+
 import tkinter as tk
 from typing import List, Optional
 from pathlib import Path
-from src.utils.logger import setup_logger
+
+
+jcache = JSONCache()
+jcache.get("data/config/config.json")
+logger = setup_logger("DMBuddy", jcache)
+
 
 # Function to load button labels from JSON file
 def load_buttons_from_json(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-            return data.get('buttons', [])
-    except FileNotFoundError:
-        print(f"Error: File {file_path} not found.")
-        return []
-    except json.JSONDecodeError:
-        print("Error: Invalid JSON format.")
-        return []
+    buttons = jcache.get(file_path)
+    return buttons.get('buttons', []) if buttons else []
+
 
 # Function to handle button clicks (placeholder for now)
 def button_click(button_name):
@@ -44,7 +44,7 @@ class App:
 # Main execution
 if __name__ == "__main__":
     # Path to your JSON file
-    json_file_path = Path("data/config/menu.json")
+    json_file_path = Path("data/config/main_menu.json")
     
     # Initialize Tkinter
     root = tk.Tk()

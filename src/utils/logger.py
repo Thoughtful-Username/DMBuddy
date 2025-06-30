@@ -96,13 +96,11 @@ def setup_logger(name: str, jcache: JSONCache, **kwargs) -> logging.Logger:
     if kwargs.get('file_enabled', defaults.get('file_enabled', True)):
         # File logging enabled
 
-        print(f'{kwargs.get("file_level", defaults.get("file_level", "INFO")).upper()}')
         file_log_level = level_map.get(
                             kwargs.get('file_level',
                                 defaults.get('file_level',
                                     'INFO')).upper(),
                                         logging.INFO)
-        print(f'File log level: {file_log_level}')
 
         current_datetime = datetime.now()
         formatted_file_date = current_datetime.strftime(
@@ -151,19 +149,9 @@ def setup_logger(name: str, jcache: JSONCache, **kwargs) -> logging.Logger:
             backupCount=backup_count
         )
         file_handler.setLevel(file_log_level)
-        print(f"File log level set to: {file_log_level}")
         file_handler.setFormatter(file_formatter)
 
         # Add handlers to logger
         logger.addHandler(file_handler)
 
     return logger
-
-if __name__ == "__main__":
-    # Example usage
-    logger = setup_logger(__name__, JSONCache(), file_level="DEBUG")
-    logger.debug("This is a debug message.")
-    logger.info("This is an info message.")
-    logger.warning("This is a warning message.")
-    logger.error("This is an error message.")
-    logger.critical("This is a critical message.")

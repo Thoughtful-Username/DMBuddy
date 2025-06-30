@@ -2,7 +2,7 @@
   "logger": {
     "version": 1,
     "kwargs": {
-      "level": "INFO",
+      "level": "DEBUG",
       "console_enabled": "true",
       "console_level": "WARNING",
       "console_format": "%(name)s - %(levelname)s - %(message)s",
