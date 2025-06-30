@@ -1,4 +1,3 @@
 __pycache__/
 *.pyc
-.venv/
-src/utils/__pycache__/logger.cpython-312.pyc
+venv/
