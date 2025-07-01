@@ -14,14 +14,14 @@ class JSONCache:
         self._ensure_directory(os.path.dirname(initial_file))
         # Load the initial file if it exists
         if os.path.isfile(initial_file):
-            self.get(initial_file)
+            self.read(initial_file)
 
     def _ensure_directory(self, directory: str) -> None:
         """Create the directory if it doesn't exist."""
         if directory and not os.path.exists(directory):
             os.makedirs(directory)
 
-    def get(self, file_path: str, force_reload: bool = False) -> Optional[dict]:
+    def read(self, file_path: str, force_reload: bool = False) -> Optional[dict]:
         """Retrieve data from a JSON file, loading it into the cache if not already present.
 
         Args:
