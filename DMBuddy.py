@@ -9,14 +9,14 @@ from pathlib import Path
 
 jcache = JSONCache()
 jcache.get("data/config/config.json")
-logger = setup_logger("DMBuddy", jcache)
+log = setup_logger(__name__, jcache)
 
 
 # Function to load button labels from JSON file
 def load_buttons_from_json(file_path):
+    log.debug(f"Loading buttons from JSON file: {file_path}")
     buttons = jcache.get(file_path)
     return buttons.get('buttons', []) if buttons else []
-
 
 # Function to handle button clicks (placeholder for now)
 def button_click(button_name):
